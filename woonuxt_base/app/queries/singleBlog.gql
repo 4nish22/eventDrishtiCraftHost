@@ -1,0 +1,16 @@
+query GetSinglePost($uri: String!) {
+  nodeByUri(uri: $uri) {
+    __typename
+    ... on Post {
+      id
+      title
+      content
+      date
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+# Fragment for reusable Story fields
+fragment StoryFields on Story {
+  id
+  databaseId
+  title
+  slug
+  excerpt
+  date
+  featuredImage {
+    node {
+      sourceUrl
+      altText
+      mediaDetails {
+        width
+        height
+      }
+    }
+  }
+}
+
+# Query to get a list of all stories (Archive)
+query GetStories($first: Int = 10, $after: String) {
+  stories(first: $first, after: $after, where: { orderby: { field: DATE, order: DESC } }) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      ...StoryFields
+    }
+  }
+}
+
+# Query to get a single story by its slug
+query GetStoryBySlug($id: ID!) {
+  story(id: $id, idType: SLUG) {
+    ...StoryFields
+    content
+    author {
+      node {
+        name
+      }
+    }
+  }
+}
+
+query GetSingleStory($uri: String!) {
+  nodeByUri(uri: $uri) {
+    __typename
+    ... on Story {
+      id
+      title
+      content
+      date
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+    }
+    # Keep the Post fragment if you use the same page for both
+    ... on Post {
+      id
+      title
+      content
+      date
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+    }
+  }
+}

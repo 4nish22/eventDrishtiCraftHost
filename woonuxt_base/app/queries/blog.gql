@@ -1,0 +1,32 @@
+query GetAllBlogs {
+  posts(first: 100) {
+    nodes {
+      id
+      title
+      slug
+      date
+      excerpt
+      uri
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+    }
+  }
+}
+query GetRelatedPosts($exclude: [ID]) {
+  posts(first: 3, where: { notIn: $exclude }) {
+    nodes {
+      id
+      title
+      uri
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+query getAllProductCategories($first: Int = 100) {
+  productCategories(first: $first, where: { orderby: COUNT, order: ASC, hideEmpty: true, parent: 0 }) {
+    nodes {
+      ...ProductCategory
+    }
+  }
+}

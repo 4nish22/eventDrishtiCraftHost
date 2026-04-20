@@ -1,0 +1,16 @@
+query GetBanners {
+  banners {
+    nodes {
+      id
+      title
+      content
+      excerpt
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+    }
+  }
+}

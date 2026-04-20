@@ -1,0 +1,18 @@
+#mutation Logout {
+#  logout(input: { clientMutationId: "" }) {
+#   success
+#  }
+#}
+
+# Note: Logout in WPGraphQL is typically handled client-side by clearing auth tokens
+# This is a placeholder query that won't be executed
+# The actual logout logic should be implemented in the application code
+
+# If you need a query for documentation purposes:
+query LogoutPlaceholder {
+  # This is just a placeholder and won't be executed
+  viewer {
+    id
+  }
+}
+

@@ -1,0 +1,18 @@
+query getHotProducts($first: Int = 10) {
+  products(first: $first, where: { tagIn: ["best-selling"], visibility: VISIBLE, status: "publish" }) {
+    nodes {
+      name
+      slug
+      type
+      databaseId
+      id
+      averageRating
+      reviewCount
+      ...Terms
+      ...ProductCategories
+      ...SimpleProduct
+      ...VariableProduct
+      ...ExternalProduct
+    }
+  }
+}
