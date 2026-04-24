@@ -1,0 +1,9 @@
+query GetFAQs {
+  faqs {
+    nodes {
+      id
+      title   # This is your Question
+      content # This is your Answer
+    }
+  }
+}

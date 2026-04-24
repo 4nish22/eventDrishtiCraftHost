@@ -29,7 +29,9 @@ import { address, phone, email } from '~/woonuxt_base/app/constants';
         <div class="text-[13px] flex flex-col gap-2 font-bold uppercase tracking-widest text-gray-400">
           <NuxtLink to="/about" class="hover:text-white transition-colors">About</NuxtLink>
           <NuxtLink to="/gallery" class="hover:text-white transition-colors">Gallery</NuxtLink>
-          <NuxtLink to="/blog" class="hover:text-white transition-colors">Blogs</NuxtLink>
+          <NuxtLink to="/blog" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+            Blogs
+          </NuxtLink>
           <NuxtLink to="/faq" class="hover:text-white transition-colors">FAQ's</NuxtLink>
         </div>
       </div>

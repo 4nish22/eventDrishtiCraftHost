@@ -10,7 +10,9 @@ const { wishlistLink } = useAuth();
 
     <NuxtLink class="hover:text-primary" to="/about">About Us</NuxtLink>
     <NuxtLink class="hover:text-primary" to="/gallery">Gallery</NuxtLink>
-    <NuxtLink class="hover:text-primary" to="/blog">Blogs</NuxtLink>
+    <NuxtLink to="/blog" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+      Blogs
+    </NuxtLink>
     <NuxtLink class="hover:text-primary" to="/contact">{{ $t('messages.general.contact') }}</NuxtLink>
     <NuxtLink class="lg:hidden hover:text-primary" to="/my-account" :prefetch="false">My Account</NuxtLink>
   </nav>
