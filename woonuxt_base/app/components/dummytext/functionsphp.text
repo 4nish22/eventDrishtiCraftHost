@@ -157,10 +157,6 @@ if ( ! function_exists( 'twentytwentyfive_format_binding' ) ) :
 	}
 endif;
 
-
-
-
-
 /**
  * Register "Banners" Custom Post Type for CRUD management with GraphQL support.
  */
@@ -188,3 +184,120 @@ if ( ! function_exists( 'twentytwentyfive_register_banner_cpt' ) ) :
 	}
 endif;
 add_action( 'init', 'twentytwentyfive_register_banner_cpt' );
+/**
+ * Register "Stories" Custom Post Type for CRUD management with GraphQL support.
+ */
+if ( ! function_exists( 'twentytwentyfive_register_stories_cpt' ) ) :
+    function twentytwentyfive_register_stories_cpt() {
+        $labels = array(
+            'name'                  => _x( 'Stories', 'Post Type General Name', 'twentytwentyfive' ),
+            'singular_name'         => _x( 'Story', 'Post Type Singular Name', 'twentytwentyfive' ),
+            'menu_name'             => __( 'Stories', 'twentytwentyfive' ),
+            'name_admin_bar'        => __( 'Story', 'twentytwentyfive' ),
+            'archives'              => __( 'Story Archives', 'twentytwentyfive' ),
+            'attributes'            => __( 'Story Attributes', 'twentytwentyfive' ),
+            'parent_item_colon'     => __( 'Parent Story:', 'twentytwentyfive' ),
+            'all_items'             => __( 'All Stories', 'twentytwentyfive' ),
+            'add_new_item'          => __( 'Add New Story', 'twentytwentyfive' ),
+            'add_new'               => __( 'Add New', 'twentytwentyfive' ),
+            'new_item'              => __( 'New Story', 'twentytwentyfive' ),
+            'edit_item'             => __( 'Edit Story', 'twentytwentyfive' ),
+            'update_item'           => __( 'Update Story', 'twentytwentyfive' ),
+            'view_item'             => __( 'View Story', 'twentytwentyfive' ),
+            'view_items'            => __( 'View Stories', 'twentytwentyfive' ),
+            'search_items'          => __( 'Search Story', 'twentytwentyfive' ),
+            'not_found'             => __( 'Not found', 'twentytwentyfive' ),
+            'not_found_in_trash'    => __( 'Not found in Trash', 'twentytwentyfive' ),
+            'featured_image'        => __( 'Featured Image', 'twentytwentyfive' ),
+            'set_featured_image'    => __( 'Set featured image', 'twentytwentyfive' ),
+            'remove_featured_image' => __( 'Remove featured image', 'twentytwentyfive' ),
+            'use_featured_image'    => __( 'Use as featured image', 'twentytwentyfive' ),
+            'insert_into_item'      => __( 'Insert into story', 'twentytwentyfive' ),
+            'uploaded_to_this_item' => __( 'Uploaded to this story', 'twentytwentyfive' ),
+            'items_list'            => __( 'Stories list', 'twentytwentyfive' ),
+            'items_list_navigation' => __( 'Stories list navigation', 'twentytwentyfive' ),
+            'filter_items_list'     => __( 'Filter stories list', 'twentytwentyfive' ),
+        );
+
+        $args = array(
+            'label'                 => __( 'Story', 'twentytwentyfive' ),
+            'description'           => __( 'A collection of client or project stories.', 'twentytwentyfive' ),
+            'labels'                => $labels,
+            'supports'              => array( 'title', 'editor', 'thumbnail', 'excerpt', 'author' ),
+            'taxonomies'            => array( 'category', 'post_tag' ), // Optional: add if you want to categorize stories
+            'hierarchical'          => false,
+            'public'                => true,
+            'show_ui'               => true,
+            'show_in_menu'          => true,
+            'menu_position'         => 5,
+            'menu_icon'             => 'dashicons-book-alt', // Book icon for stories
+            'show_in_admin_bar'     => true,
+            'show_in_nav_menus'     => true,
+            'can_export'            => true,
+            'has_archive'           => true,
+            'exclude_from_search'   => false,
+            'publicly_queryable'    => true,
+            'capability_type'       => 'post',
+            'show_in_rest'          => true,             // Required for Gutenberg editor
+            'show_in_graphql'       => true,             // Enables WPGraphQL support
+            'graphql_single_name'   => 'story',          // The name to use for single queries
+            'graphql_plural_name'   => 'stories',        // The name to use for list queries
+            'rewrite'               => array( 'slug' => 'stories' ),
+        );
+
+        register_post_type( 'story', $args );
+    }
+endif;
+add_action( 'init', 'twentytwentyfive_register_stories_cpt' );
+
+/**
+ * Register "FAQs" Custom Post Type for CRUD management with GraphQL support.
+ */
+if ( ! function_exists( 'twentytwentyfive_register_faq_cpt' ) ) :
+    function twentytwentyfive_register_faq_cpt() {
+        $labels = array(
+            'name'                  => _x( 'FAQs', 'Post Type General Name', 'twentytwentyfive' ),
+            'singular_name'         => _x( 'FAQ', 'Post Type Singular Name', 'twentytwentyfive' ),
+            'menu_name'             => __( 'FAQs', 'twentytwentyfive' ),
+            'name_admin_bar'        => __( 'FAQ', 'twentytwentyfive' ),
+            'all_items'             => __( 'All FAQs', 'twentytwentyfive' ),
+            'add_new_item'          => __( 'Add New FAQ', 'twentytwentyfive' ),
+            'add_new'               => __( 'Add New', 'twentytwentyfive' ),
+            'new_item'              => __( 'New FAQ', 'twentytwentyfive' ),
+            'edit_item'             => __( 'Edit FAQ', 'twentytwentyfive' ),
+            'update_item'           => __( 'Update FAQ', 'twentytwentyfive' ),
+            'view_item'             => __( 'View FAQ', 'twentytwentyfive' ),
+            'search_items'          => __( 'Search FAQ', 'twentytwentyfive' ),
+            'not_found'             => __( 'No FAQs found', 'twentytwentyfive' ),
+            'not_found_in_trash'    => __( 'No FAQs found in Trash', 'twentytwentyfive' ),
+        );
+
+        $args = array(
+            'label'                 => __( 'FAQ', 'twentytwentyfive' ),
+            'description'           => __( 'Frequently Asked Questions and Answers', 'twentytwentyfive' ),
+            'labels'                => $labels,
+            'supports'              => array( 'title', 'editor', 'revisions' ), // Title = Question, Editor = Answer
+            'hierarchical'          => false,
+            'public'                => true,
+            'show_ui'               => true,
+            'show_in_menu'          => true,
+            'menu_position'         => 6, // Placed below Stories
+            'menu_icon'             => 'dashicons-editor-help', // Question mark icon
+            'show_in_admin_bar'     => true,
+            'show_in_nav_menus'     => true,
+            'can_export'            => true,
+            'has_archive'           => true,
+            'exclude_from_search'   => false,
+            'publicly_queryable'    => true,
+            'capability_type'       => 'post',
+            'show_in_rest'          => true,            // Enables Gutenberg
+            'show_in_graphql'       => true,            // WPGraphQL support
+            'graphql_single_name'   => 'faq',           // GraphQL single query: faq(id: "...")
+            'graphql_plural_name'   => 'faqs',          // GraphQL list query: faqs { nodes { ... } }
+            'rewrite'               => array( 'slug' => 'faq' ),
+        );
+
+        register_post_type( 'faq', $args );
+    }
+endif;
+add_action( 'init', 'twentytwentyfive_register_faq_cpt' );
