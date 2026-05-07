@@ -42,8 +42,14 @@ useHead({
 </script>
 
 <template>
-  <div class="container flex flex-col items-center" v-if="allFetchedNodes.length">
-    <div class="w-full pt-12">
+  <!-- 
+    Changed: Removed 'flex flex-col items-center' from main div. 
+    Home page uses 'section class="container"', so we follow that structure.
+  -->
+  <main class="overflow-x-hidden bg-white" v-if="allFetchedNodes.length">
+    <section class="container mx-auto px-4 pt-12">
+      
+      <!-- Header Section: Matches the spacing/padding of your Home sections -->
       <div class="mb-12 border-l-2 border-primary pl-6">
         <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-gray-900 leading-none">
           {{ route.query.filter === 'tag[best-selling]' ? 'Best Sellers' : 'Collection' }}
@@ -53,6 +59,7 @@ useHead({
         </p>
       </div>
       
+      <!-- Controls -->
       <div class="flex items-center justify-between w-full gap-4 mb-10 border-b border-gray-100 pb-6">
         <ProductResultCount />
         <div class="flex items-center gap-8">
@@ -61,8 +68,19 @@ useHead({
         </div>
       </div>
 
-      <ProductGrid :products="productsToShow" />
+      <!-- 
+        LAYOUT FIX: 
+        We use the exact grid classes from your home page's ProductRow.
+        This forces 2 columns on mobile, preventing images from becoming "too big".
+      -->
+      <div class="w-full">
+        <ProductRow
+          :products="productsToShow" 
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8" 
+        />
+      </div>
 
+      <!-- Load More Section -->
       <div class="mt-24 mb-40 flex flex-col items-center gap-10">
         <button 
           v-if="products.length > 20"
@@ -71,9 +89,7 @@ useHead({
           class="group relative px-20 py-5 overflow-hidden transition-all duration-500 disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <div class="absolute inset-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center ease-out"></div>
-          
           <div class="absolute inset-0 border border-primary group-hover:border-transparent transition-colors duration-500"></div>
-
           <span class="relative z-10 text-[11px] font-black uppercase tracking-[0.5em] transition-colors duration-500" 
                 :class="hasMore ? 'text-primary group-hover:text-white' : 'text-gray-300'">
             {{ hasMore ? 'Load More' : 'Collection Complete' }}
@@ -96,7 +112,18 @@ useHead({
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
   <NoProductsFound v-else />
 </template>
+
+<style scoped>
+/* Matching the clean transition style from your home page */
+.shrink-enter-active, .shrink-leave-active {
+  transition: all 0.3s ease;
+}
+.shrink-enter-from, .shrink-leave-to {
+  opacity: 0;
+  transform: scale(0.98);
+}
+</style>
