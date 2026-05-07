@@ -3,39 +3,14 @@ import { email, phone } from '~/woonuxt_base/app/constants';
 
 const { isShowingSearch } = useSearching();
 
-// Logic for scroll direction
-const lastScrollTop = ref(0);
-const isHidden = ref(false);
-
-const handleScroll = () => {
-  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-  if (currentScroll > lastScrollTop.value && currentScroll > 150) {
-    // Scrolling down - hide navbar
-    isHidden.value = true;
-  } else {
-    // Scrolling up - show navbar
-    isHidden.value = false;
-  }
-
-  // Update last position, preventing negative values on mobile
-  lastScrollTop.value = currentScroll <= 0 ? 0 : currentScroll;
-};
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
+// All scroll logic (handleScroll, lastScrollTop, isHidden) has been removed
+// as it is no longer needed for a permanently visible header.
 </script>
 
 <template>
-  <header :class="[
-    'bg-white sticky top-0 z-50 shadow-md transition-transform duration-300',
-    isHidden ? '-translate-y-full' : 'translate-y-0'
-  ]">
+  <!-- Removed isHidden conditional and transition-transform logic -->
+  <header class="bg-white sticky top-0 z-50 shadow-md">
+    
     <!-- Top Section -->
     <div class="border-b border-gray-100">
       <div class="container flex items-center justify-between py-1 lg:py-1">
