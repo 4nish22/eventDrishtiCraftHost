@@ -1,5 +1,5 @@
 query GetAllBlogs {
-  posts(first: 100) {
+  blogPosts(first: 100) {
     nodes {
       id
       title
@@ -16,8 +16,11 @@ query GetAllBlogs {
     }
   }
 }
+
+
+
 query GetRelatedPosts($exclude: [ID]) {
-  posts(first: 3, where: { notIn: $exclude }) {
+  blogPosts(first: 3, where: { notIn: $exclude }) {
     nodes {
       id
       title

@@ -54,7 +54,7 @@
           <NuxtLink 
             v-for="related in relatedPosts" 
             :key="related.id" 
-            :to="`/blog${related.uri}`"
+            :to="related.uri"
             class="group"
           >
             <div class="aspect-[16/10] overflow-hidden bg-gray-50 border border-gray-100 mb-6">
@@ -88,14 +88,14 @@ const uri = computed(() => {
   const segments = route.params.slug
   const path = Array.isArray(segments) ? segments.join('/') : segments
   const cleanPath = path.replace(/^\/|\/$/g, '')
-  return `/${cleanPath}/`
+  return `/blog-posts/${cleanPath}/`
 })
 
 const { data, pending } = await useAsyncGql('GetSinglePost', { uri: uri.value })
 const post = computed(() => data.value?.nodeByUri)
 
 const { data: relatedData } = await useAsyncGql('GetRelatedPosts', { exclude: [post.value?.id] })
-const relatedPosts = computed(() => relatedData.value?.posts?.nodes || [])
+const relatedPosts = computed(() => relatedData.value?.blogPosts?.nodes || [])
 
 const formatDate = (dateStr) => {
   if (!dateStr) return ''

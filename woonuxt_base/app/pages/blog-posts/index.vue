@@ -24,7 +24,7 @@
           v-for="post in posts" 
           :key="post.id" 
           class="flex flex-col bg-white border border-gray-200 group hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 cursor-pointer"
-          @click="navigateTo(`/blog${post.uri}`)"
+          @click="navigateTo(post.uri)"
         >
           <div class="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-gray-100">
             <img 
@@ -75,7 +75,7 @@
 
 <script setup>
 const { data, pending } = await useAsyncGql('GetAllBlogs')
-const posts = computed(() => data.value?.posts?.nodes || [])
+const posts = computed(() => data.value?.blogPosts?.nodes || [])
 
 const formatDate = (dateStr) => {
   return new Date(dateStr).toLocaleDateString('en-US', {

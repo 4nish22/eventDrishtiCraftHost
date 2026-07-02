@@ -2,43 +2,73 @@
 const route = useRoute();
 
 const props = defineProps<{
-  products: any[]
+  products: any[];
 }>();
-
-// We removed productsPerPage and the computed productsToShow slice
-// because the parent is already handling the "Load More" slicing logic.
 </script>
 
 <template>
   <Transition name="fade" mode="out-in">
     <section v-if="props.products.length" class="relative w-full">
-      <TransitionGroup name="shrink" tag="div" mode="in-out" class="product-grid">
-        <ProductCard v-for="(node, i) in props.products" :key="node.id || i" :node :index="i" />
+      <TransitionGroup
+        name="shrink"
+        tag="div"
+        mode="in-out"
+        class="product-grid"
+      >
+        <ProductCard
+          v-for="(node, i) in props.products"
+          :key="node.id || i"
+          :node="node"
+          :index="i"
+        />
       </TransitionGroup>
-      
-      </section>
+    </section>
+
     <NoProductsFound v-else />
   </Transition>
 </template>
 
 <style lang="postcss" scoped>
 .product-grid {
-  @apply my-4 grid transition-all gap-4 md:gap-8 lg:my-8;
-  grid-template-columns: repeat(2, 1fr);
+  @apply my-4 grid gap-3 sm:gap-4 md:gap-6 lg:gap-8 transition-all lg:my-8;
+
+  /* Mobile */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .product-grid:empty {
   display: none;
 }
 
-@media (min-width: 768px) {
+/* Tablet */
+@media (min-width: 640px) {
   .product-grid {
-    /* minmax(210px, 1fr) will naturally give you about 5 columns on large screens */
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Animations kept exactly as they were */
+/* Small laptop */
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1280px) {
+  .product-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* Animations */
 .shrink-move {
   transition: all 400ms;
 }

@@ -1,14 +1,20 @@
 query GetSinglePost($uri: String!) {
   nodeByUri(uri: $uri) {
-    __typename
-    ... on Post {
+    ... on BlogPost {
       id
       title
       content
       date
+      excerpt
+      categories {
+        nodes {
+          name
+        }
+      }
       featuredImage {
         node {
           sourceUrl
+          altText
         }
       }
     }
