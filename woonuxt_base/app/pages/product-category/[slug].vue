@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Product } from '~/woonuxt_base/app/types';
+import { ref, computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 // 1. Setup Composables
 const { setProducts, updateProductList, products } = useProducts();
@@ -53,42 +55,43 @@ useHead({
 </script>
 
 <template>
-  <main class="container mx-auto px-4 sm:px-6 py-8 md:py-12 max-w-7xl" v-if="productsInCategory.length">
+  <main class="container mx-auto px-4 sm:px-6 py-12 md:py-16 max-w-7xl" v-if="productsInCategory.length">
     
     <!-- Hero Header Zone -->
-    <header class="mb-12 border-l-2 border-primary pl-6 pb-2">
+    <header class="mb-16 border-l-2 border-primary pl-6 pb-2">
       <div class="max-w-3xl">
         <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-gray-900 leading-none">
           {{ category?.name || 'Products' }}
         </h1>
-        <!-- Global Brand Paragraph Styling: Rich text matched to home site typography scales -->
+        <!-- Global Brand Paragraph Styling: Tailored crisp copy weight -->
         <p v-if="category?.description" class="mt-4 text-xs sm:text-sm leading-relaxed text-gray-500 font-medium max-w-2xl break-words" v-html="category.description"></p>
-        <p v-else class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.4em] mt-3">
+        <p v-else class="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mt-4">
           Handcrafted in Nepal
         </p>
       </div>
     </header>
 
     <!-- Subcategories Section -->
-    <section v-if="subcategories.length > 0" class="mb-14 md:mb-20">
-      <h2 class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">
+    <section v-if="subcategories.length > 0" class="mb-16 md:mb-24">
+      <h2 class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-gray-400 mb-8">
         Explore Subcategories
       </h2>
+      <!-- Stripped rounded-xl from cards to lock structural sharpness -->
       <div class="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         <CategoryCard
           v-for="(subcategory, i) in subcategories" 
           :key="subcategory.id || i" 
           :node="subcategory"
           :image-loading="i <= 3 ? 'eager' : 'lazy'"
-          class="h-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md rounded-xl overflow-hidden border border-gray-100 cursor-pointer" 
+          class="h-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md overflow-hidden border border-gray-100 cursor-pointer" 
         />
       </div>
     </section>
 
     <!-- Filter & Filter Context Controls -->
-    <section class="flex items-center justify-between gap-4 mb-10 border-b border-gray-100 pb-5">
-      <!-- Standardized counter typography -->
-      <ProductResultCount class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-600" />
+    <section class="flex items-center justify-between gap-4 mb-12 border-b border-gray-100 pb-6">
+      <!-- Standardized corporate counter typography -->
+      <ProductResultCount class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-gray-900" />
       <div class="flex items-center gap-4">
         <OrderByDropdown class="hidden md:inline-flex" v-if="storeSettings.showOrderByDropdown" />
         <ShowFilterTrigger v-if="storeSettings.showFilters" class="md:hidden" />
@@ -101,7 +104,7 @@ useHead({
     </section>
 
     <!-- Progressive Pagination & Status Bars -->
-    <footer class="mt-24 mb-40 flex flex-col items-center gap-10">
+    <footer class="mt-24 mb-40 flex flex-col items-center gap-12">
       
       <!-- Brand Button Style -->
       <button 
@@ -129,7 +132,7 @@ useHead({
           </p>
           <span class="h-px w-8 bg-gray-100"></span>
         </div>
-        <div class="w-40 h-[1px] bg-gray-100 mt-2 relative rounded-full overflow-hidden">
+        <div class="w-40 h-[1px] bg-gray-100 mt-2 relative overflow-hidden">
           <div 
             class="absolute top-0 left-0 h-full bg-primary transition-all duration-1000 ease-out" 
             :style="{ width: `${(productsToShow.length / (products.length || 1)) * 100}%` }"
@@ -140,8 +143,8 @@ useHead({
   </main>
 
   <!-- Empty State Fallback -->
-  <main v-else class="container mx-auto px-4 py-20 text-center max-w-xl">
-    <Icon name="lucide:shopping-bag" class="size-12 text-gray-300 mx-auto mb-5" />
+  <main v-else class="min-h-[60vh] flex flex-col items-center justify-center text-center container mx-auto px-4 max-w-xl">
+    <Icon name="lucide:shopping-bag" class="size-12 text-gray-300 mx-auto mb-6" />
     <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-gray-900 leading-none mb-4">
       {{ category?.name || 'Products' }}
     </h1>
@@ -151,3 +154,14 @@ useHead({
     </p>
   </main>
 </template>
+
+<style scoped>
+/* Strict structural hard boundaries across all dynamic components */
+* {
+  border-radius: 0px !important;
+}
+
+:deep(p) {
+  margin: 0;
+}
+</style>
