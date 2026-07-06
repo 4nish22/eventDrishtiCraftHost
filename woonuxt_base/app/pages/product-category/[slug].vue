@@ -58,18 +58,26 @@ useHead({
   <main class="container mx-auto px-4 sm:px-6 py-12 md:py-16 max-w-7xl" v-if="productsInCategory.length">
     
     <!-- Hero Header Zone -->
-    <header class="mb-16 border-l-2 border-primary pl-6 pb-2">
-      <div class="max-w-3xl">
-        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-          {{ category?.name || 'Products' }}
-        </h1>
-        <!-- Global Brand Paragraph Styling: Tailored crisp copy weight -->
-        <p v-if="category?.description" class="mt-4 text-xs sm:text-sm leading-relaxed text-gray-500 font-medium max-w-2xl break-words" v-html="category.description"></p>
-        <p v-else class="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mt-4">
-          Handcrafted in Nepal
-        </p>
-      </div>
-    </header>
+  <header class="mb-16 border-l-2 border-primary pl-6 pb-2">
+  <div class="w-full">
+    <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-gray-900 leading-none">
+      {{ category?.name || 'Products' }}
+    </h1>
+
+    <p
+      v-if="category?.description"
+      class="mt-4 text-xs sm:text-sm leading-relaxed text-gray-500 font-medium w-full break-words"
+      v-html="category.description"
+    ></p>
+
+    <p
+      v-else
+      class="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mt-4"
+    >
+      Handcrafted in Nepal
+    </p>
+  </div>
+</header>
 
     <!-- Subcategories Section -->
     <section v-if="subcategories.length > 0" class="mb-16 md:mb-24">
